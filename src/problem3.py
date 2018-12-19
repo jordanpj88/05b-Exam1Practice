@@ -38,7 +38,7 @@ def main():
 def run_test_problem3a():
     """ Tests the   problem3a   function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # Done: 2. Implement this TEST function.
     #   It TESTS the  problem1a  function defined below.
     #   Include at least **   5   ** tests (we wrote four for you).
     # -------------------------------------------------------------------------
@@ -112,6 +112,20 @@ def run_test_problem3a():
     # your choice), add 1 more test case of your own choosing.
     # -------------------------------------------------------------------------
 
+    # Window 4:
+    title = 'Problem 3a. Test 5: Start at (10, 20), 2 lines'
+    window4 = rg.RoseWindow(500, 500, title)
+
+    # Test 5 (it is on window 4):
+    point = rg.Point(10, 20)
+    expected = 4
+    answer = problem3a(window4, point, 2)
+    print()
+    print('Test 5 expected:', expected)
+    print('       actual:  ', answer)
+
+    window4.close_on_mouse_click()
+
 
 def problem3a(window, point, n):
     """
@@ -146,7 +160,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -155,6 +169,27 @@ def problem3a(window, point, n):
     #    TIME ESTIMATE:   20 to 35 minutes.
     # -------------------------------------------------------------------------
 
+    start = point
+    end = rg.Point(point.x, point.y + 50)
+    thickness = 1
+    total = 0
+    for k in range(n):
+        line = rg.Line(start, end)
+        total = total + thickness
+        line.thickness = thickness
+        line.attach_to(window)
+        window.render()
+        #
+        if thickness < 13:
+            thickness = thickness + 2
+        else:
+            thickness = 13
+        #
+        start.x = start.x + 20
+        start.y = start.y + 10
+        end.x = end.x + 20
+        end.y = end.y + 10
+    return (total)
 
 def run_test_problem3b():
     """ Tests the   problem3b   function. """
@@ -210,7 +245,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # Done: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ###########################################################################
@@ -223,6 +258,18 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # -------------------------------------------------------------------------
+
+    window = rg.RoseWindow(400, 650)
+    thickness = 0
+    x = point1.x
+    for k in range(m):
+        y = point1.y + 60 * k
+        point = rg.Point(x, y)
+        n = 3 + k * 2
+        thick = problem3a(window, point, n)
+        thickness = thickness + thick
+    window.close_on_mouse_click()
+    return (thickness)
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
